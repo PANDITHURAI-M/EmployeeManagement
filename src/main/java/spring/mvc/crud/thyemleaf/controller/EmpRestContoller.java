@@ -108,10 +108,10 @@ public class EmpRestContoller {
 		public Employee patchEmployee(@PathVariable int employeeId , 
 			                       @RequestBody Map<String, Object> patchingDetails) {
 		
-		Employee tempEmployee = employeeService.findEmployeeByID(employeeId);
+		Employee temporaryEmployee = employeeService.findEmployeeByID(employeeId);
 		
 		// throw exception if if not found
-		if(tempEmployee==null) {
+		if(temporaryEmployee==null) {
 			throw new RuntimeException("Employee id not found : "+employeeId);
 		}
 		
@@ -120,7 +120,7 @@ public class EmpRestContoller {
 		    throw new RuntimeException("Employee Id not allowed in request body :"+employeeId);
 		}
 		
-		Employee patchedEmployee = apply(patchingDetails , tempEmployee);
+		Employee patchedEmployee = apply(patchingDetails , temporaryEmployee);
 		Employee dbEmployee = employeeService.save(patchedEmployee);
 		return dbEmployee;
 	}
